@@ -1,0 +1,27 @@
+- job:
+    name: test_freestyle
+    project-type: freestyle
+    defaults: global
+    description: "This is just one example job maintained by jenkins job builder"
+    disabled: false
+    display-name: "Jenkins Job Builder - freestyle job example"
+    concurrect: false
+    block-downstream: true
+    block-upstream: true
+    retry-count: 3
+    logrotate:
+        daysToKeep: 1
+        numToKeep: 20
+        artifactDaysToKeep: -1
+        artifactNumToKeep: -1
+    views:
+      - 'Jenkins Job Builder Examples'
+    builders:
+      - shell: echo "to start the test"
+      - shell: echo "running the test"
+      - shell: echo "finish the test"
+    triggers:
+      - timed: '@daily'
+    publishers:
+      - email: 
+          recipients: 'wlin@redhat.com'
