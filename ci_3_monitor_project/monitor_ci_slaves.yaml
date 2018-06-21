@@ -25,7 +25,7 @@
           rm -rf master.zip
           wget https://github.com/testcara/JJB-exmaples/archive/master.zip
           unzip master.zip
-          cd master/ci_3_monitor_project/
+          cd JJB-exmaples-master/ci_3_monitor_project/
           ./monitor_slaves.sh.sh
     triggers:
       - timed: 'H */3 * * *'
