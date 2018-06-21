@@ -9,11 +9,11 @@ offline_slaves=""
 unavilabed_services_count=0
 unavilable_services=""
 check_single_slave_online(){
-	result=$(host $1)
-	if [[ ${result} =~ "domain name pointer" ]]; then
+	result=$(ping -c 1 $1)
+	if [[ ${result} =~ "1 received" ]]; then
 		echo "The slave ${1} is online"
 	else
-		echo "The slave ${1} is offline"
+		echo "Error: The slave ${1} is offline"
 		offline_slave_count=$((${offline_slave_count}+1))
 		offline_slaves="${offline_slaves} ${1}"
 	fi
@@ -32,7 +32,7 @@ check_pub_ansible_service_status(){
     if [[ "${result}" =~ 'ansible 1.9.6' ]]; then
         echo "The pub ansible service is ready"
     else
-        echo "The pub ansible service is unavilable"
+        echo "Error: The pub ansible service is unavilable"
         unavilable_services="${unavilable_services} pub_ansible_service"
         unavilabed_services_count=$((${unavilabed_services_count}+1))
     fi
@@ -44,7 +44,7 @@ check_perf_slave_service_status(){
 	if [[ ${result} =~ "Method Not Allowed" ]]; then
 		echo "The jmeter mocker service is ready"
 	else
-		echo "The jmeter mocker server is unavilable"
+		echo "Error: The jmeter mocker server is unavilable"
 		unavilable_services="${unavilable_services} perf_mocker_slave_service"
 		unavilabed_services_count=$((${unavilabed_services_count}+1))
 	fi
@@ -56,7 +56,7 @@ check_umb_broker_service_status(){
 	if [[ ${result} =~ "HTTP/1.1 200 OK" ]]; then
 		echo "The umb broker service is ready"
 	else
-		echo "The umb broker server is unavilable"
+		echo "Error: The umb broker server is unavilable"
 		unavilable_services="${unavilable_services} umb_broker_service"
 		unavilabed_services_count=$((${unavilabed_services_count}+1))
 	fi
@@ -70,13 +70,13 @@ check_all_slaves_and_summary_monitor_results(){
 	check_umb_broker_service_status
 	echo "===== Slave Status Summary Begin ======"
 	if [[ "${offline_slave_count}" -gt "0" ]]; then
-		echo "== There are ${offline_slave_count} slaves offline"
+		echo "== Error: There are ${offline_slave_count} slaves offline"
 		echo "== The offline slaves are:${offline_slaves}"
 	else
 		echo "== All slaves are online "
 	fi
 	if [[ "${unavilabed_services_count}" -gt "0" ]]; then
-		echo "== There are ${unavilabed_services_count} services unavilable"
+		echo "== Error: There are ${unavilabed_services_count} services unavilable"
 		echo "== The unavilable services are:${unavilable_services}"
 	else
 		echo "== All services are ready"
