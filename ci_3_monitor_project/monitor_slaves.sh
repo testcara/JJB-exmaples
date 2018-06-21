@@ -1,9 +1,9 @@
 #!/bin/bash
 #set -eo pipefail
 
-pub_ansible_slave_host='10.8.250.232'
-perf_jmeter_slave_host='10.8.248.96'
-umb_broker_slave_host='10.8.241.108'
+pub_ansible_slave_host=${1}
+perf_jmeter_slave_host=${2}
+umb_broker_slave_host=${3}
 offline_slave_count=0
 offline_slaves=""
 unavilabed_services_count=0
