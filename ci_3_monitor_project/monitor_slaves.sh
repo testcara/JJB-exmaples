@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eo pipefail
+#set -eo pipefail
 
 pub_ansible_slave_host='10.8.250.232'
 perf_jmeter_slave_host='10.8.248.96'
@@ -71,13 +71,13 @@ check_all_slaves_and_summary_monitor_results(){
 	echo "===== Slave Status Summary Begin ======"
 	if [[ "${offline_slave_count}" -gt "0" ]]; then
 		echo "== There are ${offline_slave_count} slaves offline"
-		echo "== The offline slaves are: ${offline_slaves}"
+		echo "== The offline slaves are:${offline_slaves}"
 	else
 		echo "== All slaves are online "
 	fi
 	if [[ "${unavilabed_services_count}" -gt "0" ]]; then
 		echo "== There are ${unavilabed_services_count} services unavilable"
-		echo "== The unavilable services are: ${unavilabed_services}"
+		echo "== The unavilable services are:${unavilable_services}"
 	else
 		echo "== All services are ready"
 	fi
