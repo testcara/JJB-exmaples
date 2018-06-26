@@ -56,6 +56,6 @@
             fail-on-error: true
             show-graphs: false
         - email:
-            recipients: 'wlin@redhat.com'
-            notify-every-unstable-build: false
+            recipients: 'wlin@redhat.com,qgong@redhat.com'
+            notify-every-unstable-build: true
             send-to-individuals: true
