@@ -19,9 +19,6 @@
       - 'RC_QE_Testing_CI'
     parameters:
       - string:
-          name: "pub_ansible_slave_host"
-          default: '10.8.250.232'
-      - string:
           name: 'perf_jmeter_slave_host'
           default: '10.8.248.96'
       - string:
@@ -42,7 +39,6 @@
           docker pull ${image}
           cat monitor_slaves_docker.sh | docker run \
           -i --rm=true  \
-          -e "pub_ansible_slave_host=${pub_ansible_slave_host}" \
           -e "perf_jmeter_slave_host=${perf_jmeter_slave_host}" \
           -e "umb_broker_slave_host=${umb_broker_slave_host}" \
           ${image}
